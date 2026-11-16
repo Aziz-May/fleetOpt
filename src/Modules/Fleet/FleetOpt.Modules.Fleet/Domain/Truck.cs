@@ -10,14 +10,14 @@ internal sealed class Truck
     public decimal FuelConsumptionLitersPer100Km { get; private set; }
     public TruckStatus Status { get; private set; }
 
-    private Truck(string plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km)
+    private Truck( Guid id, string plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km , TruckStatus status)
     {
-        Id = Guid.CreateVersion7();
+        Id = id ;
         PlateNumber = plateNumber;
         MaxWeightKg = maxWeightKg;
         MaxVolumeM3 = maxVolumeM3;
         FuelConsumptionLitersPer100Km = fuelConsumptionLitersPer100Km;
-        Status = TruckStatus.Available;
+        Status = status ;
     }
     public static Truck Register(string? plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km)
     {
@@ -43,7 +43,7 @@ internal sealed class Truck
         }
         var normalizedPlate = plateNumber.Trim().ToUpperInvariant();
 
-        return new Truck(normalizedPlate, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km);
+        return new Truck(Guid.CreateVersion7(), normalizedPlate, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km, TruckStatus.Available);
 
 
     }

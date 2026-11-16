@@ -4,6 +4,7 @@ namespace FleetOpt.Modules.Fleet.UnitTests.Domain;
 
 public class TruckTests
 {
+   
     [Fact]
     public void Register_WithValidData_CreatesAvailableTruck()
     {
@@ -21,7 +22,7 @@ public class TruckTests
     public void Register_WithUntrimmedLowercasePlateNumber_StoresNormalizedPlate()
     {
         // Arrange + Act
-        var truck = Truck.Register(" ab-123 ", maxWeightKg: 10_000m, maxVolumeM3: 40m, fuelConsumptionLitersPer100Km: 30m);
+        var truck = RegisterTruck(plateNumber: " ab-123 ", maxWeightKg: 10_000m, maxVolumeM3: 40m, fuelConsumptionLitersPer100Km: 30m);
 
         // Assert
         Assert.Equal("AB-123", truck.PlateNumber);
@@ -34,7 +35,7 @@ public class TruckTests
     {
         // Act & Assert
         var exception = Assert.Throws<ArgumentException>(() =>
-            Truck.Register(plateNumber, maxWeightKg: 10_000m, maxVolumeM3: 40m, fuelConsumptionLitersPer100Km: 30m));
+            RegisterTruck(plateNumber: plateNumber));
 
         Assert.Equal("plateNumber", exception.ParamName);
     }
@@ -47,7 +48,7 @@ public class TruckTests
     {
         // Act & Assert
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            Truck.Register("AB-123", maxWeight, maxVolumeM3: 40m, fuelConsumptionLitersPer100Km: 30m));
+            RegisterTruck(maxWeightKg: maxWeight));
 
         Assert.Equal("maxWeightKg", exception.ParamName);
     }
@@ -58,7 +59,7 @@ public class TruckTests
     {
         // Act & Assert
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            Truck.Register("AB-123", maxWeightKg: 10_000m, maxVolumeM3: maxVolume, fuelConsumptionLitersPer100Km: 30m));
+            RegisterTruck(maxVolumeM3: maxVolume));
 
         Assert.Equal("maxVolumeM3", exception.ParamName);
     }
@@ -69,8 +70,15 @@ public class TruckTests
     {
         // Act & Assert
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            Truck.Register("AB-123", maxWeightKg: 10_000m, maxVolumeM3: 40m, fuelConsumptionLitersPer100Km: fuelConsumptionLitersPer100Km));
+            RegisterTruck(fuelConsumptionLitersPer100Km: fuelConsumptionLitersPer100Km));
 
         Assert.Equal("fuelConsumptionLitersPer100Km", exception.ParamName);
     }
+
+     private static Truck RegisterTruck(
+        string ? plateNumber = "AB-123",
+        decimal maxWeightKg = 10_000m,
+        decimal maxVolumeM3 = 40m,
+        decimal fuelConsumptionLitersPer100Km = 30m
+    )=> Truck.Register(plateNumber, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km);
 }

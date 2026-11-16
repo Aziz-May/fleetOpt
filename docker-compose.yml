@@ -1,0 +1,14 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest   # official Microsoft image (Linux)
+    container_name: fleetopt-sql
+    environment:
+      ACCEPT_EULA: "Y"                                 # required license acceptance
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}          # read from a .env file, NOT hardcoded
+    ports:
+      - "1433:1433"                                    # your-PC-port:container-port
+    volumes:
+      - fleetopt-sql-data:/var/opt/mssql               # data survives container restarts
+
+volumes:
+  fleetopt-sql-data:

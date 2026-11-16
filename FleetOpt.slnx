@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FleetOpt.Api/FleetOpt.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Fleet/">
+    <Project Path="src/Modules/Fleet/FleetOpt.Modules.Fleet/FleetOpt.Modules.Fleet.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FleetOpt.Modules.Fleet.UnitTests/FleetOpt.Modules.Fleet.UnitTests.csproj" />
+  </Folder>
+</Solution>

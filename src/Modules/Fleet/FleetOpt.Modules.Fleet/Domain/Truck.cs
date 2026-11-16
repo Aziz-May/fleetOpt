@@ -1,14 +1,14 @@
 
-namespace FleetOpt.Modules.Fleet.Domain; 
+namespace FleetOpt.Modules.Fleet.Domain;
 
-public class Truck
+internal sealed class Truck
 {
-    public Guid Id {get; private set;}
-    public string PlateNumber  {get; private set;}
-    public decimal MaxWeightKg {get; private set;}
-    public decimal MaxVolumeM3 {get; private set;}
-    public decimal FuelConsumptionLitersPer100Km {get; private set;}
-    public TruckStatus Status {get; private set;} 
+    public Guid Id { get; private set; }
+    public string PlateNumber { get; private set; }
+    public decimal MaxWeightKg { get; private set; }
+    public decimal MaxVolumeM3 { get; private set; }
+    public decimal FuelConsumptionLitersPer100Km { get; private set; }
+    public TruckStatus Status { get; private set; }
 
     private Truck(string plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km)
     {
@@ -19,11 +19,11 @@ public class Truck
         FuelConsumptionLitersPer100Km = fuelConsumptionLitersPer100Km;
         Status = TruckStatus.Available;
     }
-    public static Truck Register( string plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km)
+    public static Truck Register(string plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km)
     {
-        var truck = new Truck(plateNumber, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km);
-        
-        return truck;
+        return new Truck(plateNumber, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km);
+
+
     }
-    
+
 }

@@ -1,6 +1,6 @@
 
 namespace FleetOpt.Modules.Fleet.Domain;
-public enum TruckStatus
+internal enum TruckStatus
 {
     Available,
     OnRoute,

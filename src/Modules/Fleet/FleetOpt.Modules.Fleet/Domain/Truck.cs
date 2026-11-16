@@ -21,7 +21,9 @@ internal sealed class Truck
     }
     public static Truck Register(string plateNumber, decimal maxWeightKg, decimal maxVolumeM3, decimal fuelConsumptionLitersPer100Km)
     {
-        return new Truck(plateNumber, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km);
+        var normalizedPlate = plateNumber.Trim().ToUpperInvariant();
+
+        return new Truck(normalizedPlate, maxWeightKg, maxVolumeM3, fuelConsumptionLitersPer100Km);
 
 
     }

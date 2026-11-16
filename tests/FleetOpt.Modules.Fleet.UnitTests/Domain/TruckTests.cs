@@ -16,4 +16,14 @@ public class TruckTests
         Assert.Equal(10_000m, truck.MaxWeightKg);
         Assert.Equal(TruckStatus.Available, truck.Status);
     }
+
+    [Fact]
+    public void Register_WithUntrimmedLowercasePlateNumber_StoresNormalizedPlate()
+    {
+        // Arrange + Act
+        var truck = Truck.Register(" ab-123 ", maxWeightKg: 10_000m, maxVolumeM3: 40m, fuelConsumptionLitersPer100Km: 30m);
+
+        // Assert
+        Assert.Equal("AB-123", truck.PlateNumber);
+    }
 }

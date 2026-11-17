@@ -32,3 +32,6 @@ Content-Type: application/json
   "maxVolumeM3": 40,
   "fuelConsumptionLitersPer100Km": 30
 }
+
+### Get truck by id (expect 200)
+GET {{baseUrl}}/api/fleet/trucks/01A1E8F2-0FA4-77D2-B8BD-8B94A5A49FE2

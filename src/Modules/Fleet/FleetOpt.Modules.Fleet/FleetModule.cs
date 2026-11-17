@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using FleetOpt.Modules.Fleet.Persistence;
 using FleetOpt.Modules.Fleet.Domain;
 using FleetOpt.Modules.Fleet.Features.RegisterTruck;
+using FleetOpt.Modules.Fleet.Features.GetTruckById;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,15 @@ public static class FleetModule
         ));
         services.AddScoped<ITruckRepository, TruckRepository>();
         services.AddScoped<RegisterTruckHandler>();
+        services.AddScoped<GetTruckByIdHandler>();
+
         return services;
     }
     public static IEndpointRouteBuilder MapFleetEndpoints(this IEndpointRouteBuilder app)
 {
     var group = app.MapGroup("/api/fleet").WithTags("Fleet");
     group.MapRegisterTruck();
+    group.MapGetTruckById();
     return app;
 }
 

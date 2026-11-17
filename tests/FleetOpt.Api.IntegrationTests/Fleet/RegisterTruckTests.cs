@@ -23,7 +23,7 @@ public class RegisterTruckTests(FleetApiFactory factory) : IClassFixture<FleetAp
     }
 
     [Fact] 
-    public async Task RegisterTruck_WithDuplicateOlateNumber_Returns409Conflict()
+    public async Task RegisterTruck_WithDuplicatePlateNumber_Returns409Conflict()
     {
         // First, register a truck with a specific plate number
         var initialResponse = await _client.PostAsJsonAsync("/api/fleet/trucks", new

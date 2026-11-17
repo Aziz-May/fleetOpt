@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/FleetOpt.Api/FleetOpt.Api.csproj" />
+    <Project Path="src/FleetOpt.Shared/FleetOpt.Shared.csproj" />
   </Folder>
   <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Fleet/">

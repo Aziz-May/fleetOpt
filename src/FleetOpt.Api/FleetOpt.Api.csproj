@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules\Fleet\FleetOpt.Modules.Fleet\FleetOpt.Modules.Fleet.csproj" />
+    <ProjectReference Include="..\FleetOpt.Shared\FleetOpt.Shared.csproj" />
   </ItemGroup>
 
 </Project>

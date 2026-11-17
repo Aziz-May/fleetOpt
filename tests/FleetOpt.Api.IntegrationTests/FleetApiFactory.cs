@@ -1,4 +1,5 @@
 using FleetOpt.Modules.Fleet.Persistence;
+using FleetOpt.Modules.Inventory.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,9 @@ public sealed class FleetApiFactory : WebApplicationFactory<Program>, IAsyncLife
         using var scope = Services.CreateScope();          // first access to Services → app boots here
         var db = scope.ServiceProvider.GetRequiredService<FleetDbContext>();
         await db.Database.MigrateAsync();                  // applies YOUR migration to the empty DB
+        var inventoryDb = scope.ServiceProvider.GetRequiredService<InventoryDbContext>();
+        await inventoryDb.Database.MigrateAsync();
+
     }
 
     // xUnit calls this ONCE after the tests

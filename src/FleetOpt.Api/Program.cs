@@ -1,4 +1,5 @@
 using FleetOpt.Modules.Fleet;
+using FleetOpt.Modules.Inventory;
 using FleetOpt.Api.ErrorHandling;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddFleetModule(builder.Configuration); // Add the Fleet module services to the DI container
+builder.Services.AddInventoryModule(builder.Configuration); // Add the Inventory module services to the DI container
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 var app = builder.Build();
@@ -20,6 +22,7 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapFleetEndpoints(); // Map the Fleet module endpoints
+app.MapInventoryEndpoints(); // Map the Inventory module endpoints
 
 
 

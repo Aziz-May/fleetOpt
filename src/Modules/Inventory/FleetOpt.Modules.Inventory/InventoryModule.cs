@@ -10,6 +10,7 @@ using FleetOpt.Modules.Inventory.Features.CreateWarehouse;
 using FleetOpt.Modules.Inventory.Features.CreateProduct;
 using FleetOpt.Modules.Inventory.Features.ReceiveStock;
 using FleetOpt.Modules.Inventory.Features.GetWarehouseStock;
+using FleetOpt.Modules.Inventory.Contracts;
 
 namespace FleetOpt.Modules.Inventory;
 
@@ -32,6 +33,8 @@ public static class InventoryModule
         services.AddScoped<CreateProductHandler>();
         services.AddScoped<ReceiveStockHandler>();
         services.AddScoped<GetWarehouseStockHandler>();
+        services.AddScoped<IInventoryModuleApi, InventoryModuleApi>();
+
 
 
         return services;

@@ -26,26 +26,38 @@ namespace FleetOpt.Modules.Inventory.Persistence.Migrations
             modelBuilder.Entity("FleetOpt.Modules.Inventory.Domain.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Sku")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("UnitVolumeM3")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 4)
+                        .HasColumnType("decimal(10,4)");
 
                     b.Property<decimal>("UnitWeightKg")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 3)
+                        .HasColumnType("decimal(10,3)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", "inventory");
+                    b.HasIndex("Sku")
+                        .IsUnique()
+                        .HasDatabaseName("UX_Products_Sku");
+
+                    b.ToTable("Products", "inventory", t =>
+                        {
+                            t.HasCheckConstraint("CK_Products_UnitVolumeM3", "[UnitVolumeM3] > 0");
+
+                            t.HasCheckConstraint("CK_Products_UnitWeightKg", "[UnitWeightKg] > 0");
+                        });
                 });
 
             modelBuilder.Entity("FleetOpt.Modules.Inventory.Domain.StockItem", b =>

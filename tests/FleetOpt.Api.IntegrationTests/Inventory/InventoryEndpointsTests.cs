@@ -36,6 +36,8 @@ public class InventoryEndpointsTests(FleetApiFactory factory)
         var line = Assert.Single(stock!);
         Assert.Equal("ACC-001", line.Sku);
         Assert.Equal(70, line.QuantityOnHand);
+        Assert.Equal(0.001m, line.UnitVolumeM3);   // regression: volume must not be rounded to 2 decimals
+        Assert.Equal(0.5m, line.UnitWeightKg);
     }
 
     [Fact]

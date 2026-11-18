@@ -13,10 +13,14 @@
   <Folder Name="/src/Modules/Inventory/">
     <Project Path="src/Modules/Inventory/FleetOpt.Modules.Inventory/FleetOpt.Modules.Inventory.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Optimization/">
+    <Project Path="src/Modules/Optimization/FleetOpt.Modules.Optimization/FleetOpt.Modules.Optimization.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/FleetOpt.Api.IntegrationTests/FleetOpt.Api.IntegrationTests.csproj" />
     <Project Path="tests/FleetOpt.Modules.Deliveries.UnitTests/FleetOpt.Modules.Deliveries.UnitTests.csproj" />
     <Project Path="tests/FleetOpt.Modules.Fleet.UnitTests/FleetOpt.Modules.Fleet.UnitTests.csproj" />
     <Project Path="tests/FleetOpt.Modules.Inventory.UnitTests/FleetOpt.Modules.Inventory.UnitTests.csproj" />
+    <Project Path="tests/FleetOpt.Modules.Optimization.UnitTests/FleetOpt.Modules.Optimization.UnitTests.csproj" />
   </Folder>
 </Solution>

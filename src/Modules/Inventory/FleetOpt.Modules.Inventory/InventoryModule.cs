@@ -5,6 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
+using FleetOpt.Modules.Inventory.Domain;
+using FleetOpt.Modules.Inventory.Features.CreateWarehouse;
+using FleetOpt.Modules.Inventory.Features.CreateProduct;
+using FleetOpt.Modules.Inventory.Features.ReceiveStock;
+using FleetOpt.Modules.Inventory.Features.GetWarehouseStock;
 
 namespace FleetOpt.Modules.Inventory;
 
@@ -21,13 +26,25 @@ public static class InventoryModule
             options.UseSqlServer(connectionString, sql =>
                 sql.MigrationsHistoryTable("__EFMigrationsHistory", "inventory")));
 
+        services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<CreateWarehouseHandler>();
+        services.AddScoped<CreateProductHandler>();
+        services.AddScoped<ReceiveStockHandler>();
+        services.AddScoped<GetWarehouseStockHandler>();
+
+
         return services;
     }
 
     public static IEndpointRouteBuilder MapInventoryEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/inventory").WithTags("Inventory");
-        // slices will be mapped here in 6c
+        group.MapCreateWarehouse();
+        group.MapCreateProduct();
+        group.MapReceiveStock();
+        group.MapGetWarehouseStock();
+
         return app;
     }
 }

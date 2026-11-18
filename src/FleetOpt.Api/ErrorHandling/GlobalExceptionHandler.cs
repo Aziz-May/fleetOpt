@@ -13,6 +13,7 @@ internal sealed class GlobalExceptionHandler(
         var (status, title) = exception switch
         {
             ConflictException => (StatusCodes.Status409Conflict, "Conflict"),
+            NotFoundException => (StatusCodes.Status404NotFound, "Not Found"),
             ArgumentException => (StatusCodes.Status400BadRequest, "Invalid request"),
             _                 => (StatusCodes.Status500InternalServerError, "An unexpected error occurred")
         };

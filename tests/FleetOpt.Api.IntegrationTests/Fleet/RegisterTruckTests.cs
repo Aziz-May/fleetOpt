@@ -3,7 +3,8 @@ using System.Net.Http.Json;
 
 namespace FleetOpt.Api.IntegrationTests.Fleet;
 
-public class RegisterTruckTests(FleetApiFactory factory) : IClassFixture<FleetApiFactory>
+[Collection(nameof(ApiCollection))]
+public class RegisterTruckTests(FleetApiFactory factory) 
 {
     private readonly HttpClient _client = factory.CreateClient();
 

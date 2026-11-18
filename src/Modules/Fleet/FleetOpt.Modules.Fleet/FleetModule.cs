@@ -5,6 +5,7 @@ using FleetOpt.Modules.Fleet.Persistence;
 using FleetOpt.Modules.Fleet.Domain;
 using FleetOpt.Modules.Fleet.Features.RegisterTruck;
 using FleetOpt.Modules.Fleet.Features.GetTruckById;
+using FleetOpt.Modules.Fleet.Contracts;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ public static class FleetModule
         services.AddScoped<ITruckRepository, TruckRepository>();
         services.AddScoped<RegisterTruckHandler>();
         services.AddScoped<GetTruckByIdHandler>();
+        services.AddScoped<IFleetModuleApi, FleetModuleApi>();   // the module's public contract
 
         return services;
     }

@@ -1,3 +1,4 @@
+using FleetOpt.Modules.Deliveries.Contracts;
 using FleetOpt.Modules.Deliveries.Domain;
 using FleetOpt.Modules.Deliveries.Features.CreateDelivery;
 using FleetOpt.Modules.Deliveries.Features.GetDeliveryById;
@@ -27,6 +28,7 @@ public static class DeliveriesModule
         services.AddScoped<IDeliveryRepository, DeliveryRepository>();
         services.AddScoped<CreateDeliveryHandler>();
         services.AddScoped<GetDeliveryByIdHandler>();
+        services.AddScoped<IDeliveriesModuleApi, DeliveriesModuleApi>();   // the module's public contract
         return services;
     }
 

@@ -35,3 +35,75 @@ Content-Type: application/json
 
 ### Get truck by id (expect 200)
 GET {{baseUrl}}/api/fleet/trucks/01A1E8F2-0FA4-77D2-B8BD-8B94A5A49FE2
+
+###############################################################################
+# DEMO: plan deliveries end to end. Send the requests below IN ORDER.
+# "# @name x" stores a response; {{x.response.body.$.id}} reuses its id.
+# SKUs and plates are unique: change them if you run the demo a second time.
+###############################################################################
+
+### D1. A second truck, more fuel-efficient (expect 201)
+POST {{baseUrl}}/api/fleet/trucks
+Content-Type: application/json
+
+{ "plateNumber": "DEMO-ECO", "maxWeightKg": 3000, "maxVolumeM3": 20, "fuelConsumptionLitersPer100Km": 18 }
+
+### D2. Warehouse in Tunis (expect 201)
+# @name warehouse
+POST {{baseUrl}}/api/inventory/warehouses
+Content-Type: application/json
+
+{ "name": "Tunis Central", "latitude": 36.8065, "longitude": 10.1815 }
+
+### D3. Product (expect 201)
+# @name water
+POST {{baseUrl}}/api/inventory/products
+Content-Type: application/json
+
+{ "sku": "DEMO-WATER-6X15", "name": "Water 6 x 1.5L", "unitWeightKg": 9.2, "unitVolumeM3": 0.012 }
+
+### D4. Put 150 packs in the warehouse (expect 204)
+POST {{baseUrl}}/api/inventory/warehouses/{{warehouse.response.body.$.id}}/stock
+Content-Type: application/json
+
+{ "productId": "{{water.response.body.$.id}}", "quantity": 150 }
+
+### D5. Urgent delivery to La Marsa: 80 packs (expect 201)
+POST {{baseUrl}}/api/deliveries
+Content-Type: application/json
+
+{
+  "customerName": "Carrefour La Marsa", "destinationLatitude": 36.8782, "destinationLongitude": 10.3247,
+  "priority": "Urgent", "deadline": "2030-01-01T12:00:00Z",
+  "lines": [ { "productId": "{{water.response.body.$.id}}", "quantity": 80 } ]
+}
+
+### D6. Normal delivery to Lac 2: 50 packs (expect 201)
+POST {{baseUrl}}/api/deliveries
+Content-Type: application/json
+
+{
+  "customerName": "Monoprix Lac 2", "destinationLatitude": 36.8425, "destinationLongitude": 10.2683,
+  "priority": "Normal", "deadline": "2030-01-01T18:00:00Z",
+  "lines": [ { "productId": "{{water.response.body.$.id}}", "quantity": 50 } ]
+}
+
+### D7. Low-priority delivery to Ariana: 40 packs → only 20 left after D5 + D6 (expect Unassigned: InsufficientStock)
+POST {{baseUrl}}/api/deliveries
+Content-Type: application/json
+
+{
+  "customerName": "Aziza Ariana", "destinationLatitude": 36.8625, "destinationLongitude": 10.1956,
+  "priority": "Low", "deadline": "2030-01-02T12:00:00Z",
+  "lines": [ { "productId": "{{water.response.body.$.id}}", "quantity": 40 } ]
+}
+
+### D8. Generate the plan (expect 201 + Location)
+# @name plan
+POST {{baseUrl}}/api/optimization/plans
+Content-Type: application/json
+
+{ "warehouseId": "{{warehouse.response.body.$.id}}", "fuelPricePerLiter": 2.525 }
+
+### D9. Read the plan (expect 200: routes, stops in order, costs, unassigned + reasons)
+GET {{baseUrl}}/api/optimization/plans/{{plan.response.body.$.id}}

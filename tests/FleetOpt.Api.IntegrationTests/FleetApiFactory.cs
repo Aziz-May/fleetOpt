@@ -1,6 +1,7 @@
 using FleetOpt.Modules.Fleet.Persistence;
 using FleetOpt.Modules.Inventory.Persistence;
 using FleetOpt.Modules.Deliveries.Persistence;
+using FleetOpt.Modules.Optimization.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ public sealed class FleetApiFactory : WebApplicationFactory<Program>, IAsyncLife
         await inventoryDb.Database.MigrateAsync();
         var deliveriesDb = scope.ServiceProvider.GetRequiredService<DeliveriesDbContext>();
         await deliveriesDb.Database.MigrateAsync();
+        var optimizationDb = scope.ServiceProvider.GetRequiredService<OptimizationDbContext>();
+        await optimizationDb.Database.MigrateAsync();
 
 
     }

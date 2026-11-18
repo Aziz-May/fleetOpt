@@ -7,12 +7,31 @@
   </PropertyGroup>
 
   <!--
-    The optimization ENGINE is pure C#: no EF Core, no ASP.NET Core, no other module.
-    Dependencies (module contracts, persistence, endpoints) are added later, around the engine,
-    never inside it.
+    The Engine/ folder stays pure C#: it uses none of the references below.
+    The rest of the module (contracts of other modules, persistence, endpoints) is built AROUND the engine.
+
+    Optimization depends on Fleet, Inventory and Deliveries, but only their PUBLIC types are visible:
+    the IxxxModuleApi contracts and their records. Their entities and DbContexts are internal.
+    None of those modules depends on Optimization: dependencies point in one direction only.
   -->
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\FleetOpt.Shared\FleetOpt.Shared.csproj" />
+    <ProjectReference Include="..\..\Fleet\FleetOpt.Modules.Fleet\FleetOpt.Modules.Fleet.csproj" />
+    <ProjectReference Include="..\..\Inventory\FleetOpt.Modules.Inventory\FleetOpt.Modules.Inventory.csproj" />
+    <ProjectReference Include="..\..\Deliveries\FleetOpt.Modules.Deliveries\FleetOpt.Modules.Deliveries.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <InternalsVisibleTo Include="FleetOpt.Modules.Optimization.UnitTests" />
+    <InternalsVisibleTo Include="FleetOpt.Api.IntegrationTests" />
   </ItemGroup>
 
 </Project>

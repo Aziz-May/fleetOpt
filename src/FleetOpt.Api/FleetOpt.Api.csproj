@@ -20,6 +20,7 @@
     <ProjectReference Include="..\FleetOpt.Shared\FleetOpt.Shared.csproj" />
     <ProjectReference Include="..\Modules\Inventory\FleetOpt.Modules.Inventory\FleetOpt.Modules.Inventory.csproj" />
     <ProjectReference Include="..\Modules\Deliveries\FleetOpt.Modules.Deliveries\FleetOpt.Modules.Deliveries.csproj" />
+    <ProjectReference Include="..\Modules\Optimization\FleetOpt.Modules.Optimization\FleetOpt.Modules.Optimization.csproj" />
   </ItemGroup>
 
 </Project>

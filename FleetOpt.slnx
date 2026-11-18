@@ -4,6 +4,9 @@
     <Project Path="src/FleetOpt.Shared/FleetOpt.Shared.csproj" />
   </Folder>
   <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Deliveries/">
+    <Project Path="src/Modules/Deliveries/FleetOpt.Modules.Deliveries/FleetOpt.Modules.Deliveries.csproj" />
+  </Folder>
   <Folder Name="/src/Modules/Fleet/">
     <Project Path="src/Modules/Fleet/FleetOpt.Modules.Fleet/FleetOpt.Modules.Fleet.csproj" />
   </Folder>
@@ -12,6 +15,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/FleetOpt.Api.IntegrationTests/FleetOpt.Api.IntegrationTests.csproj" />
+    <Project Path="tests/FleetOpt.Modules.Deliveries.UnitTests/FleetOpt.Modules.Deliveries.UnitTests.csproj" />
     <Project Path="tests/FleetOpt.Modules.Fleet.UnitTests/FleetOpt.Modules.Fleet.UnitTests.csproj" />
     <Project Path="tests/FleetOpt.Modules.Inventory.UnitTests/FleetOpt.Modules.Inventory.UnitTests.csproj" />
   </Folder>

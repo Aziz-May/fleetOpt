@@ -1,5 +1,6 @@
 using FleetOpt.Modules.Fleet.Persistence;
 using FleetOpt.Modules.Inventory.Persistence;
+using FleetOpt.Modules.Deliveries.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,9 @@ public sealed class FleetApiFactory : WebApplicationFactory<Program>, IAsyncLife
         await db.Database.MigrateAsync();                  // applies YOUR migration to the empty DB
         var inventoryDb = scope.ServiceProvider.GetRequiredService<InventoryDbContext>();
         await inventoryDb.Database.MigrateAsync();
+        var deliveriesDb = scope.ServiceProvider.GetRequiredService<DeliveriesDbContext>();
+        await deliveriesDb.Database.MigrateAsync();
+
 
     }
 

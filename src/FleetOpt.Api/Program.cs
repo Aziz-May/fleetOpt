@@ -1,6 +1,8 @@
 using FleetOpt.Modules.Fleet;
 using FleetOpt.Modules.Inventory;
 using FleetOpt.Api.ErrorHandling;
+using System.Text.Json.Serialization; 
+ using FleetOpt.Modules.Deliveries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,11 @@ builder.Services.AddFleetModule(builder.Configuration); // Add the Fleet module 
 builder.Services.AddInventoryModule(builder.Configuration); // Add the Inventory module services to the DI container
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddSingleton(TimeProvider.System);   // the real clock, shared by all modules
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddDeliveriesModule(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +30,7 @@ app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapFleetEndpoints(); // Map the Fleet module endpoints
 app.MapInventoryEndpoints(); // Map the Inventory module endpoints
+app.MapDeliveriesEndpoints(); // Map the Deliveries module endpoints
 
 
 
